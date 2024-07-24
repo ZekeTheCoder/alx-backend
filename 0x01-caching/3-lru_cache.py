@@ -4,7 +4,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """Class defining methods th@ assign to dict & return data from it"""
+    """Class that implements a LRU caching system"""
 
     def __init__(self):
         """Function to initialise class intances"""
