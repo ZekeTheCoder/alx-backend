@@ -84,20 +84,15 @@ def get_timezone():
     """Function that returns the appropriate time zone"""
     # Check URL parameters
     local_timezone = request.args.get('timezone')
-
     if local_timezone in pytz.all_timezones:
         return local_timezone
-    else:
-        raise pytz.exceptions.UnknownTimeZoneError
 
     # Check user settings
-    user_id = request.args.get('login_as')
-
-    local_time_zone = users[int(user_id)]['timezone']
-    if local_time_zone in pytz.all_timezones:
-        return local_time_zone
-    else:
-        raise pytz.exceptions.UnknownTimeZoneError
+    user = g.get('user')
+    if user:
+        local_timezone = user.get('timezone')
+        if local_timezone in pytz.all_timezones:
+            return local_timezone
 
     # Default to UTC
     return app.config['BABEL_DEFAULT_TIMEZONE']
